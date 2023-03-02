@@ -10,7 +10,7 @@ The program executable is located in src directory of the project
 
 To run:
 ```
-LD_LIBRARY_PATH=../../build/lib ./src/log_daemon [PRODUCT_ID] [DEVICE_ID] [DEVICE_SECRET]
+LD_LIBRARY_PATH=../sdk/build/lib ./src/log_daemon [PRODUCT_ID] [DEVICE_ID] [DEVICE_SECRET]
 ```
 
 To remove all installed files:
