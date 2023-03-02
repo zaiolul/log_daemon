@@ -17,13 +17,3 @@ To remove all installed files:
 ```
 make clean
 ```
-
-Removes only the SDK build files:
-```
-make clean-sdk
-```
-
-Removes the program executable:
-```
-make clean-src
-```
