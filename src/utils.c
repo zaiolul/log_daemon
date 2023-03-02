@@ -32,7 +32,6 @@ int daemonize()
         return -1;
     }
     
-    //should be in child now;
     if(setsid() == -1)               
         return -1;
 

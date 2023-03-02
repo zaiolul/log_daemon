@@ -10,21 +10,15 @@
 #include "mqtt_client_interface.h"
 #include "tuyalink_core.h"
 
-const char productId[] = "jbjujumagj36xmsb";
-const char deviceId[] = "26722a5c5aef300491qomw";
-const char deviceSecret[] = "29b1e1501154f7a5";
+const char productId[] = "set id";
+const char deviceId[] = "set id";
+const char deviceSecret[] = "set secret";
 
 tuya_mqtt_context_t client_instance;
 
 void on_connected(tuya_mqtt_context_t* context, void* user_data)
 {
     TY_LOGI("on connected");
-    tuyalink_thing_data_model_get(context, NULL);
-    tuyalink_thing_desired_get(context, NULL, "[\"power\"]");
-    tuyalink_thing_property_report(context, NULL, "{\"power\":{\"value\":1234,\"time\":1631708204231}}");
-    tuyalink_thing_property_report_with_ack(context, NULL, "{\"power\":{\"value\":1234,\"time\":1631708204231}}");
-    tuyalink_thing_event_trigger(context, NULL, "{\"eventCode\":\"boom\",\"eventTime\":1626197189630,\"outputParams\":{\"param1\":100}}");
-    tuyalink_thing_batch_report(context, "{\"msgId\":\"45lkj3551234001\",\"time\":1626197189638,\"sys\":{\"ack\":0},\"data\":{\"properties\":{\"power\":{\"value\":11,\"time\":1626197189638}},\"events\":{\"boom\":{\"outputParams\":{\"param1\":\"10\"},\"eventTime\":1626197189001}}}}");
 }
 
 void on_disconnect(tuya_mqtt_context_t* context, void* user_data)

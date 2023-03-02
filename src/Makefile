@@ -1,5 +1,5 @@
 
-BIN:=my_daemon
+BIN:=log_daemon
 SRCS:=$(wildcard *.c)
 OBJS:=$(SRCS:.c=.o)
 LIBDIR:=-L../sdk/build/lib

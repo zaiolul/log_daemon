@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
         return ret;
     }
 
-    char command[] = "ps -eo ppid= | wc -l";
+    char command[] = "ps -eo ppid= | wc -l"; // used to get data for report
     char report[1024];
     
     while(run){
@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
             return ret;
         }
 
-        /*send data to cloud*/
+        // /*send data to cloud*/
         if((ret = tuyalink_thing_property_report_with_ack(client, deviceId, report)) == OPRT_INVALID_PARM)
         {
             syslog(LOG_ERR, "Cannot send report");
@@ -123,8 +123,10 @@ int main(int argc, char *argv[])
     }
 
     /*disconnect device*/
-    tuya_mqtt_disconnect(client);
+    tuya_mqtt_disconnect(client); 
+    tuya_mqtt_deinit(client); //free memory
     syslog(LOG_WARNING, "Daemon terminated");
+
     return 0;
 }
 
@@ -153,12 +155,12 @@ static error_t parse_opt (int key, char *arg, struct argp_state *state)
 
 void on_connected(tuya_mqtt_context_t* context, void* user_data)
 {
-    syslog(LOG_INFO,"connected");
+    syslog(LOG_INFO,"Client connected");
 }
 
 void on_disconnect(tuya_mqtt_context_t* context, void* user_data)
 {
-    syslog(LOG_INFO,"disconnected");
+    syslog(LOG_INFO,"Client disconnected");
 }
 void on_messages(tuya_mqtt_context_t* context, void* user_data, const tuyalink_message_t* msg)
 {
@@ -172,7 +174,6 @@ void on_messages(tuya_mqtt_context_t* context, void* user_data, const tuyalink_m
             break;
 
         default:
-            
             break;
     }
 
