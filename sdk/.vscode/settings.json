@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "tuya_cacert.h": "c",
+        "tuya_error_code.h": "c",
+        "mqtt_client_interface.h": "c",
+        "system_interface.h": "c",
+        "stddef.h": "c",
+        "stdlib.h": "c",
+        "tuya_log.h": "c",
+        "cjson.h": "c",
+        "tuyalink_core.h": "c",
+        "stdint.h": "c",
+        "log.h": "c",
+        "stdarg.h": "c"
+    }
+}
