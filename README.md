@@ -1,6 +1,6 @@
 # log_daemon
 
-Builds the Tuya IoT core SDK and the program files, creates program executable.
+Builds the Tuya IoT core SDK and the daemon program files, creates program executable.
 ```
 git clone https://github.com/zaiolul/log_daemon
 cd log_daemon
