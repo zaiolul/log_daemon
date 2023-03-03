@@ -1,6 +1,7 @@
-SDKBUILD:=sdk/build
-SDKSRC:=sdk/
+SDKBUILD:=./sdk/build
+SDKSRC:=./sdk/
 .PHONY: all clean sdk src
+
 all: sdk src
 
 sdk: 

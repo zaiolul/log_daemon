@@ -62,12 +62,12 @@ int main(int argc, char *argv[])
     strncpy(deviceSecret, arguments.args[2], 30);
 
     /*make program a daemon*/
-    int status = daemonize();
-    if(status > 0)
-    {
-        syslog(LOG_ERR, "Cannot create daemon");
-        return -1;
-    }
+    // int status = daemonize();
+    // if(status < 0)
+    // {
+    //     syslog(LOG_ERR, "Cannot create daemon");
+    //     return -1;
+    // }
 
     tuya_mqtt_context_t* client = &client_instance;
     
@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
         .device_id = deviceId,
         .device_secret = deviceSecret,
         .keepalive = 100,
-        .timeout_ms = 2000,
+        .timeout_ms = 5000,
         .on_connected = on_connected,
         .on_disconnect = on_disconnect,
         .on_messages = on_messages
@@ -114,12 +114,13 @@ int main(int argc, char *argv[])
             return ret;
         }
 
-        // /*send data to cloud*/
+         /*send data to cloud*/
         if((ret = tuyalink_thing_property_report_with_ack(client, deviceId, report)) == OPRT_INVALID_PARM)
         {
             syslog(LOG_ERR, "Cannot send report");
             return ret;
         }
+        syslog(LOG_INFO, "Report message sent: %s", report);
     }
 
     /*disconnect device*/
@@ -166,17 +167,17 @@ void on_messages(tuya_mqtt_context_t* context, void* user_data, const tuyalink_m
 {
     switch (msg->type) {
         case THING_TYPE_PROPERTY_REPORT_RSP:
-            syslog(LOG_INFO, "Sending to cloud id:%s, type:%d, text:%s", msg->msgid, msg->type, msg->data_string);
+            syslog(LOG_INFO, "Cloud received and replied: id:%s, type:%d", msg->msgid, msg->type);
             break;
 
         case THING_TYPE_PROPERTY_SET:
-            syslog(LOG_INFO, "Receiving from cloud id:%s, type:%d, text:%s", msg->msgid, msg->type, msg->data_string);
+       
+            syslog(LOG_INFO, "Device received id:%s, type:%d, text:%s", msg->msgid, msg->type, msg->data_string);
             break;
 
         default:
             break;
     }
-
 }
 
 void sig_handler(int signum)
