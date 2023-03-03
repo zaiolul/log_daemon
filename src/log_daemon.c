@@ -171,8 +171,9 @@ void on_messages(tuya_mqtt_context_t* context, void* user_data, const tuyalink_m
             break;
 
         case THING_TYPE_PROPERTY_SET:
-       
             syslog(LOG_INFO, "Device received id:%s, type:%d, text:%s", msg->msgid, msg->type, msg->data_string);
+            write_to_file("write", msg->data_string, "/var/tmp/from-cloud");
+         
             break;
 
         default:
