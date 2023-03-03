@@ -5,8 +5,8 @@
 #include <signal.h>
 #include <unistd.h>
 #include <syslog.h>
-#include "utils.h"
 
+#include "utils.h"
 #include "cJSON.h"
 #include "tuya_cacert.h"
 #include "tuya_error_code.h"
@@ -14,8 +14,7 @@
 #include "mqtt_client_interface.h"
 #include "tuyalink_core.h"
 
-
-static char doc[] = "Log daemon program";
+static char doc[] = "Log daemon program. Connects to Tuya cloud service, sends and receives data.";
 
 static char args_doc[] = "[PRODUCT_ID] [DEVICE_ID] [DEVICE_SECRET]";
 
