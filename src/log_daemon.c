@@ -45,13 +45,6 @@ int run = 1;
 
 int main(int argc, char *argv[])
 {   
-    /*start log*/
-    openlog("logger_daemon", LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL0);
-    setlogmask (LOG_UPTO (LOG_INFO));
-    syslog(LOG_WARNING, "Log Daemon Start");
-
-    signal(SIGINT, sig_handler);
-    
     /*get program arguments*/
     struct arguments arguments;
     argp_parse (&argp, argc, argv, 0, 0, &arguments);
@@ -60,6 +53,14 @@ int main(int argc, char *argv[])
     strncpy(deviceId, arguments.args[1], 30);
     strncpy(deviceSecret, arguments.args[2], 30);
 
+    /*register interrupt*/
+    signal(SIGINT, sig_handler);
+    
+    /*start log*/
+    openlog("log_daemon", LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL0);
+    setlogmask (LOG_UPTO (LOG_INFO));
+
+    syslog(LOG_WARNING, "Log Daemon Start");
     /*make program a daemon*/
     int status = daemonize();
     if(status < 0)
