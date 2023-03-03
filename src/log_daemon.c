@@ -62,12 +62,12 @@ int main(int argc, char *argv[])
     strncpy(deviceSecret, arguments.args[2], 30);
 
     /*make program a daemon*/
-    // int status = daemonize();
-    // if(status < 0)
-    // {
-    //     syslog(LOG_ERR, "Cannot create daemon");
-    //     return -1;
-    // }
+    int status = daemonize();
+    if(status < 0)
+    {
+        syslog(LOG_ERR, "Cannot create daemon");
+        return -1;
+    }
 
     tuya_mqtt_context_t* client = &client_instance;
     
