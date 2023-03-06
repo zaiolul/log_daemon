@@ -12,6 +12,8 @@ To run:
 ```
 LD_LIBRARY_PATH=./sdk/build/lib ./src/log_daemon [-a] -p [PRODUCT_ID] -d [DEVICE_ID] -s [DEVICE_SECRET]
 
+use the ```-a``` option to run program as a daemon
+
 or check usage:
 LD_LIBRARY_PATH=./sdk/build/lib ./src/log_daemon --help
 
