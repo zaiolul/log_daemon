@@ -13,8 +13,6 @@
 
 static struct argp argp = { options, parse_opt, 0, doc };
 
-tuya_mqtt_context_t client_instance;
-
 void sig_handler(int signum);
 
 int run = 1;
@@ -45,8 +43,8 @@ int main(int argc, char *argv[])
             return -1;
         }
     }
-    
-    tuya_mqtt_context_t* client = &client_instance;
+  
+    tuya_mqtt_context_t* client = NULL;
     
     int ret = client_init(client, arguments.device_id, arguments.secret);
     if(ret != 0)
@@ -56,9 +54,8 @@ int main(int argc, char *argv[])
     char report[1024];
     
     while(run){
-        if(create_report_string(report, command) > 0) // data sent to the cloud
-            syslog(LOG_WARNING, "Cannot create report string");
-        
+        create_report_string(report, command);
+
         /*maintain connection*/
         if((ret = tuya_mqtt_loop(client)) != OPRT_OK){
             syslog(LOG_ERR, "Cannot maintain connection");

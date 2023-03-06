@@ -50,7 +50,7 @@ int create_report_string(char *dest, char *command)
     FILE *fd;
     fd = popen(command, "r");
     if(fd == NULL){
-        syslog(LOG_WARNING,"Failed to run command\n");
+        syslog(LOG_WARNING,"Failed to run command. Cannot create report string.\n");
         return 1;
     }
     fgets(buf, sizeof(buf),fd);
