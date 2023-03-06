@@ -13,6 +13,8 @@
 
 static struct argp argp = { options, parse_opt, 0, doc };
 
+tuya_mqtt_context_t client_instance;
+
 void sig_handler(int signum);
 
 int run = 1;
@@ -43,8 +45,8 @@ int main(int argc, char *argv[])
             return -1;
         }
     }
-  
-    tuya_mqtt_context_t* client = NULL;
+    
+    tuya_mqtt_context_t* client = &client_instance;
     
     int ret = client_init(client, arguments.device_id, arguments.secret);
     if(ret != 0)
