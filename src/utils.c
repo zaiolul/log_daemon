@@ -7,6 +7,42 @@
 #include <string.h>
 #include <time.h>
 #include "cJSON.h"
+#include <argp.h>
+#include "utils.h"
+
+error_t parse_opt (int key, char *arg, struct argp_state *state)
+{
+    struct arguments *arguments = state->input;
+
+    switch (key){
+    case 'a':
+        arguments->daemon = 1;
+
+    case 'p':
+        arguments->product_id = arg;
+        break;
+
+    case 'd':
+        arguments->device_id = arg;
+        break;
+
+    case 's':
+        arguments->secret = arg;
+        break;
+    case ARGP_KEY_END:
+    {
+        printf("%s %s %s\n", arguments->device_id, arguments->product_id, arguments->secret);
+        if(arguments->device_id == NULL || arguments->product_id == NULL || arguments->secret == NULL){
+            argp_failure(state, 1, 0, "Product id, device id and device secret are all required\nCheck with --usage option");
+        }
+        break;
+    }
+    default:
+        return ARGP_ERR_UNKNOWN;
+    }
+    return 0;
+}
+
 
 int create_report_string(char *dest, char *command)
 {
@@ -82,3 +118,4 @@ int write_to_file(char* parameter, char* message, char* filename)
     cJSON_Delete(json);
     return 0;
 }
+
